@@ -11,7 +11,7 @@ Wordpress vulnerability scanner and reporting tool.
 
 - Clone github repo
 
-        git clone https://github.com/ricardolopezg/wp-guardian
+        git clone https://github.com/ph47s74x/wp-guardian
 
 
 - Install dependencies
