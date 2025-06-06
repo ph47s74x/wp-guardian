@@ -3,6 +3,8 @@ import os
 import api_combined
 import page_fuzzer
 
+BASE_DIR = os.path.dirname(__file__)
+
 #Takes in json file name from api combined
 def readjson(filename):
     # filename = 'data_structure_design.json'
@@ -104,7 +106,9 @@ def create_md(datastore, sortedcvelist,server_version,install_page,update_page):
 
 def writetomd(md_header,format_sorted,datastore):
     create_md = md_header + format_sorted
-    path_folder = './reports'
+    path_folder = os.path.join(BASE_DIR, 'reports')
+    if not os.path.isdir(path_folder):
+        os.mkdir(path_folder)
     with open(os.path.join(path_folder, f'wpg-{return_report_id(datastore)}.md'), mode='w') as md_file:
         md_file.write(create_md)
 
@@ -117,12 +121,4 @@ def jsontomd(filename,server_version,install_page,update_page):
     data_body = format_sorted(vuln_list)
     writetomd(md_data,data_body,datastore)
 
-if __name__ == "__main__":
-    filename = 'reports\\wpg-20200110-2484.json'
-    datastore = readjson(filename)
-    # report = return_report_id(datastore)
-    # vuln_list = get_sorted_vuln_list(datastore, report)
-    # sortedcvelist = get_sorted_vuln_list(datastore, report)  
-    # data_header = create_md(datastore,sortedcvelist)
-    # data_body = format_sorted(vuln_list)
-    # writetomd(data_header,data_body,datastore)
+

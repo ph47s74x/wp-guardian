@@ -3,8 +3,8 @@ Wordpress vulnerability scanner and reporting tool.
 
 ## Installation
 - API keys required
-
     https://www.wpvulndb.com - 50 free daily requests per token
+    Set the environment variables `WPVULNDB_API_KEY` and `VULNERS_API_KEY` before running.
 
     https://www.vulnersdb.com - 1,000 free monthly requests per token
 
@@ -18,7 +18,7 @@ Wordpress vulnerability scanner and reporting tool.
 
         pip install -r requirements.txt
 
-- Update config.py file with your api keys
+- Set the environment variables `WPVULNDB_API_KEY` and `VULNERS_API_KEY` with your API tokens
 
 - Usage
 
@@ -32,3 +32,7 @@ Use your favorite Markdown viewer to view the .md file. You can also use google 
 - [ ] plugin fuzzing
 - [ ] theme fuzzing
 - [ ] md5sum version fingerprinting 
+
+## License
+
+This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
