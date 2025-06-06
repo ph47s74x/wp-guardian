@@ -1,6 +1,8 @@
+import os
 import requests
-import io
 import mal_link_scan
+
+BASE_DIR = os.path.dirname(__file__)
 
 def getserverversion(url):
     r = requests.get(url)
@@ -32,7 +34,7 @@ def fuzzinstallpage(url):
 # Fuzz all directories from list
 def fuzzcommondir(url):
     dirlist=[]
-    with open('./db/commonfile.txt') as dp:
+    with open(os.path.join(BASE_DIR, 'db', 'commonfile.txt')) as dp:
         line = dp.readline()
         while line:
             combined=url+line.strip()
@@ -51,7 +53,7 @@ def fuzzcommondir(url):
         return dirlist
 def fuzzthemes(url):
     dirlist=[]
-    with open('./db/wp-themes.fuzz.txt') as dp:
+    with open(os.path.join(BASE_DIR, 'db', 'wp-themes.fuzz.txt')) as dp:
         line = dp.readline()
         while line:
             combined=url+line.strip()
@@ -67,7 +69,7 @@ def fuzzthemes(url):
 
 def fuzzplugins(url):
     dirlist=[]
-    with open('./db/wp-plugins.fuzz.txt') as dp:
+    with open(os.path.join(BASE_DIR, 'db', 'wp-plugins.fuzz.txt')) as dp:
         line = dp.readline()
         while line:
             combined=url+line.strip()
@@ -82,18 +84,18 @@ def fuzzplugins(url):
         return dirlist        
 def fuzzallpages(url):
     dirlist=[]
-    with open('./db/wordpress.fuzz.txt') as dp:
+    with open(os.path.join(BASE_DIR, 'db', 'wordpress.fuzz.txt')) as dp:
         line = dp.readline()
         while line:
-            combined=url+line.strip()
+            combined = url + line.strip()
             r = requests.get(combined)
             if r.status_code == 200:
-                pagefound=f'Page Found; {combined} {r.status_code}'
+                pagefound = f'Page Found; {combined} {r.status_code}'
                 # print(r.text)
                 # print(pagefound)
                 dirlist.append(combined)
             line = dp.readline()
-            return dirlist
+    return dirlist
 
 if __name__ == "__main__":
     url = 'https://www.cmohq.agency/'
@@ -101,4 +103,4 @@ if __name__ == "__main__":
     mal_link_scan.findlinks(linklist)
     # fuzzplugins(url)
     # fuzzcommondir(url)
-    # fuzzthemes(url)
+

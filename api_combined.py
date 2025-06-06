@@ -5,16 +5,14 @@ import requests
 from requests.compat import urljoin
 from config import *
 import vulners
-# import random
+
+BASE_DIR = os.path.dirname(__file__)
 from datetime import datetime
-import pprint
 import os
 
-pp = pprint.PrettyPrinter(indent=2)
 
 def report_builder(scanned_wp_version, url):
     now = datetime.now()
-    # report_num = now.strftime("%Y%m%d%H%M%S") + str(random.randint(1000,9999))
     report_num = now.strftime("%Y%m%d-%H%M%S")
     report_data = {}
 
@@ -30,12 +28,10 @@ def report_builder(scanned_wp_version, url):
     write_summary(report_data, report_num)
 
     # Make sure to create a reports directory to save report files
-    #TODO refactor to its own function
-    reports_dir = "./reports"
-    if not os.path.isdir('./reports'):
+    reports_dir = os.path.join(BASE_DIR, 'reports')
+    if not os.path.isdir(reports_dir):
         os.mkdir(reports_dir)
-    #TODO refactor to its own function
-    report_json_file_name = f'./reports/wpg-{report_num}.json'
+    report_json_file_name = os.path.join(reports_dir, f'wpg-{report_num}.json')
     with open(report_json_file_name, 'w') as outfile:
         json.dump(report_data, outfile)
 
@@ -130,4 +126,4 @@ def vulners_api(cve_list):
     # Search multiple CVE's
     multiple_cve = vulners_api.documentList(cve_list)
 
-    return vulners_cve_parser(multiple_cve)
+

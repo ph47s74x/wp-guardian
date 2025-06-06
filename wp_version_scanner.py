@@ -17,4 +17,4 @@ def wp_version_finder(soup):
 
 # if __name__ == "__main__":
 #     wp_version_finder(soup)
-    # print(wp_version_finder(soup))
+
